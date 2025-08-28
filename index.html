@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>雨墨星辰个人主页</title>
+    <link rel="icon" type="image/jpeg" href="src/头像.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 浮动粒子背景 -->
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <div class="container">
+        <!-- 左侧个人介绍区域 -->
+        <div class="profile-section">
+            <div class="profile-card">
+                <div class="avatar-container">
+                    <img src="https://via.placeholder.com/150x150/4A90E2/FFFFFF?text=头像" alt="个人头像" class="avatar">
+                </div>
+                <h1 class="name">你的名字</h1>
+                <div class="bio">
+                    <p>这里是你的个人介绍，可以写一些关于你自己的话，比如你的兴趣爱好、专业技能、人生目标等等。</p>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-text">Email：your.email@example.com</span>
+                    </div><div class="contact-item">
+                        <span class="contact-text">城市，省份</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧内容区域 -->
+        <div class="content-section">
+            <!-- 切换按钮 -->
+            <div class="toggle-buttons">
+                <button class="toggle-btn active" data-target="devices">设备库</button>
+                <button class="toggle-btn" data-target="links">我的网站</button>
+            </div>
+     
+            <!-- 设备库内容 -->
+            <div class="content-area" id="devices-content">
+                <h2>我的设备库</h2>
+                <div class="devices-grid">
+                    <!-- 设备卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- 友链网站内容 -->
+            <div class="content-area hidden" id="links-content">
+                <h2>友链网站</h2>
+                <div class="links-grid">
+                    <!-- 友链卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>&copy; 2025 — 雨墨星辰. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
