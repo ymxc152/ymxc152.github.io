@@ -37,6 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 添加页面加载动画
     addPageLoadAnimation();
+    
+    // 添加名称动画效果
+    addNameAnimation();
 });
 
 // 添加悬停效果
@@ -113,6 +116,111 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+// 添加名称动画效果
+function addNameAnimation() {
+    const nameElement = document.querySelector('.name');
+    if (!nameElement) return;
+    
+    let isAnimating = false;
+    
+    // 设置完成状态的通用函数
+    const setCompleteState = () => {
+        nameElement.style.width = '100%';
+        nameElement.classList.add('typing-complete');
+    };
+    
+    // 监听打字机动画完成
+    nameElement.addEventListener('animationend', function(e) {
+        if (e.animationName === 'typing') {
+            setCompleteState();
+        }
+    });
+    
+    // 点击效果
+    nameElement.addEventListener('click', function() {
+        if (isAnimating) return;
+        
+        isAnimating = true;
+        this.classList.remove('typing-complete');
+        
+        // 粒子爆炸效果
+        createParticleExplosion(this);
+        
+        // 消失动画
+        this.style.transition = 'all 0.3s ease';
+        this.style.opacity = '0';
+        this.style.transform = 'scale(0.8)';
+        this.style.animation = 'none';
+        
+        // 重新显示并打字机效果
+        setTimeout(() => {
+            this.style.width = '0';
+            this.style.opacity = '1';
+            this.style.transform = 'scale(1)';
+            this.style.transition = 'none';
+            this.style.animation = 'typing 1.5s steps(20, end) forwards, gradient-shift 3s ease-in-out infinite 1.5s';
+        }, 300);
+        
+        // 完成后恢复
+        setTimeout(() => {
+            setCompleteState();
+            this.style.animation = 'gradient-shift 3s ease-in-out infinite';
+            isAnimating = false;
+        }, 1800);
+    });
+    
+    // 悬停效果
+    nameElement.addEventListener('mouseenter', function() {
+        if (this.classList.contains('typing-complete') && !isAnimating) {
+            this.style.filter = 'drop-shadow(0 0 20px rgba(120, 219, 255, 0.8)) brightness(1.2)';
+        }
+    });
+    
+    nameElement.addEventListener('mouseleave', function() {
+        this.style.filter = 'drop-shadow(0 0 10px rgba(120, 219, 255, 0.3)) brightness(1)';
+    });
+}
+
+// 创建粒子爆炸效果
+function createParticleExplosion(element) {
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // 创建8个粒子
+    for (let i = 0; i < 8; i++) {
+        const particle = document.createElement('div');
+        Object.assign(particle.style, {
+            position: 'fixed',
+            left: centerX + 'px',
+            top: centerY + 'px',
+            width: '4px',
+            height: '4px',
+            background: `hsl(${180 + i * 45}, 70%, 60%)`,
+            borderRadius: '50%',
+            pointerEvents: 'none',
+            zIndex: '1000',
+            boxShadow: '0 0 10px currentColor'
+        });
+        
+        document.body.appendChild(particle);
+        
+        // 粒子动画
+        const angle = (i / 8) * Math.PI * 2;
+        const distance = 50 + Math.random() * 30;
+        const endX = centerX + Math.cos(angle) * distance;
+        const endY = centerY + Math.sin(angle) * distance;
+        
+        particle.animate([
+            { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+            { transform: `translate(${endX - centerX}px, ${endY - centerY}px) scale(0)`, opacity: 0 }
+        ], {
+            duration: 800,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        }).onfinish = () => particle.remove();
+    }
+}
+
 // 添加触摸设备支持
 if ('ontouchstart' in window) {
     // 为触摸设备优化悬停效果
@@ -126,4 +234,12 @@ if ('ontouchstart' in window) {
             this.style.transform = 'scale(1)';
         });
     });
+    
+    // 为名称添加触摸效果
+    const nameElement = document.querySelector('.name');
+    if (nameElement) {
+        nameElement.addEventListener('touchstart', function() {
+            createParticleExplosion(this);
+        });
+    }
 }

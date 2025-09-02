@@ -134,13 +134,13 @@ const CONFIG = {
         {
             name: "校园网Emby媒体库",
             description: "自用高清看番，内网可访问",
-            url: "https:/embygdut.ymxc.codes",
+            url: "https://embygdut.ymxc.codes",
             icon: "src/emby.png"
         },
         {
             name: "校园网测速站",
             description: "校园网测速，内网可访问",
-            url: "https:/speedtest.ymxc.codes",
+            url: "https://speedtest.ymxc.codes",
             icon: "src/speedtest.png"
         }
     ],

@@ -323,6 +323,71 @@ body::after {
     font-weight: 700;
     margin-bottom: 0.5rem;
     color: #ecf0f1;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    background: linear-gradient(45deg, #ecf0f1, #78cdc4, #78dfff, #ecf0f1);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: typing 2s steps(20, end) 0.5s forwards, gradient-shift 3s ease-in-out infinite 2.5s;
+    text-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
+    filter: drop-shadow(0 0 10px rgba(120, 219, 255, 0.3));
+}
+
+/* 完成打字机效果后的状态 */
+.name.typing-complete {
+    width: 100%;
+    animation: gradient-shift 3s ease-in-out infinite;
+}
+
+/* 打字机效果 */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+
+
+/* 渐变色彩变化 */
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 名称悬停效果 - 只在完成打字机效果后生效 */
+.name.typing-complete:hover {
+    background: linear-gradient(45deg, #78cdc4, #78dfff, #ecf0f1, #78cdc4);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 1.5s ease-in-out infinite, glow-pulse 1s ease-in-out infinite;
+    transform: scale(1.05);
+    text-shadow: 0 0 30px rgba(78, 205, 196, 0.8);
+    filter: drop-shadow(0 0 15px rgba(120, 219, 255, 0.6));
+}
+
+/* 发光脉冲效果 */
+@keyframes glow-pulse {
+    0%, 100% { 
+        text-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
+        filter: drop-shadow(0 0 10px rgba(120, 219, 255, 0.3));
+    }
+    50% { 
+        text-shadow: 0 0 40px rgba(78, 205, 196, 0.9);
+        filter: drop-shadow(0 0 20px rgba(120, 219, 255, 0.8));
+    }
+}
+
+/* 震动效果 */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+    20%, 40%, 60%, 80% { transform: translateX(2px); }
 }
 
 .bio {
@@ -671,9 +736,18 @@ body::after {
         height: 120px;
     }
     
-    /* 调整名字大小 */
+    /* 调整名字大小和动画 */
     .name {
         font-size: 1.6rem;
+        animation: typing 1.8s steps(20, end) 0.5s forwards, gradient-shift 2.5s ease-in-out infinite 2.3s;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 0;
+    }
+    
+    /* 移动端优化悬停效果 */
+    .name.typing-complete:hover {
+        transform: scale(1.03);
     }
     
     /* 调整内容标题 */
@@ -728,6 +802,15 @@ body::after {
     
     .name {
         font-size: 1.4rem;
+        animation: typing 1.5s steps(20, end) 0.5s forwards, gradient-shift 2s ease-in-out infinite 2s;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 0;
+    }
+    
+    /* 小屏幕优化悬停效果 */
+    .name.typing-complete:hover {
+        transform: scale(1.02);
     }
     
     .avatar {
@@ -815,6 +898,15 @@ body::after {
     
     .name {
         font-size: 1.3rem;
+        animation: typing 1.3s steps(20, end) 0.5s forwards, gradient-shift 1.8s ease-in-out infinite 1.8s;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 0;
+    }
+    
+    /* 超小屏幕优化悬停效果 */
+    .name.typing-complete:hover {
+        transform: scale(1.01);
     }
     
     .avatar {
@@ -864,6 +956,15 @@ body::after {
     .name {
         font-size: 1.2rem;
         margin-bottom: 0.3rem;
+        animation: typing 1.2s steps(20, end) 0.5s forwards, gradient-shift 1.5s ease-in-out infinite 1.7s;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 0;
+    }
+    
+    /* 横屏模式优化悬停效果 */
+    .name.typing-complete:hover {
+        transform: scale(1.01);
     }
     
     .bio {
